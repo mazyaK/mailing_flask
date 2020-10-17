@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+
+{% block nav_main %}
+
+    <form class="form-inline">
+        <a href="{{ url_for('login') }}" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Login</a>
+        <a href="{{ url_for('signup') }}" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Sign up</a>
+    </form>
+
+{% endblock %}
+
+
+{% block main %}
+
+    <div class="container" style="
+    height: 100%!important;
+    min-height: 100%;
+">
+        <div class="row d-flex justify-content-center align-items-center" style="
+    height: 100% !important;
+    min-height: 100%;
+">
+            <div class="col-md-4 align-items-center text-center">
+                <img src="{{ url_for('static', filename= 'site_logo.png') }}">
+                <h3>Log in</h3>
+                {% include "accounts/partials/login_form.html" %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

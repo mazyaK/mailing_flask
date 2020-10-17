@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Sign up
+{% endblock %}
+
+
+{% block nav_main %}
+
+    <form class="form-inline">
+        <a href="{{ url_for('login') }}" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Login</a>
+        <a href="{{ url_for('signup') }}" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Sign up</a>
+    </form>
+
+{% endblock %}
+
+
+{% block main %}
+
+    {% from 'bootstrap/form.html' import render_field %}
+
+    <div class="container" style="
+    height: 100%!important;
+    min-height: 100%;
+">
+        <div class="row d-flex justify-content-center align-items-center" style="
+    height: 100% !important;
+    min-height: 100%;
+">
+            <div class="col-md-4 align-items-center text-center">
+                <form method="post" id="registerForm">
+                    <img src="{{ url_for('static', filename= 'site_logo.png') }}">
+                    <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+                    {{ form.csrf_token }}
+                    <div class="form-label-group pb-2">
+                        {{ render_field(form.username) }}
+                    </div>
+                    <div class="form-label-group pb-2">
+                        {{ render_field(form.email) }}
+                    </div>
+                    <div class="form-label-group pb-2">
+                        {{ render_field(form.password) }}
+                    </div>
+                    <div class="form-label-group pb-2 ">
+                        {{ render_field(form.confirm) }}
+                    </div>
+                    <button class="btn btn-lg btn-dark btn-block pt-2" type="submit">Sign up</button>
+                    <a rel="nofollow" class="link--styled text-secondary" href="{{ url_for('login') }}">
+                        Have an account?
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+

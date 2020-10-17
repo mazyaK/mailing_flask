@@ -1,35 +1,24 @@
 import pika
-import sys
-from flask import Flask, render_template, json, request
-from validate_email import validate_email
+from flask import Flask
+from flask_login import LoginManager
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_bootstrap import Bootstrap
 
 
 app = Flask(__name__)
+app.config.from_object('config.DevelopConfig')
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+bootstrap = Bootstrap(app)
+login_manager = LoginManager(app)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 
-channel.queue_declare(queue='mailing')
+from core import views
+from accounts import views
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 
-@app.route('/check_mail', methods=['GET', 'POST'])
-def check_mail():
-    mail = request.form['mail']
-    mail_status = validate_email(mail)
-    if mail_status:
-        message = mail
-        channel.basic_publish(exchange='',
-                              routing_key='mailing',
-                              body=message)
-        print(f" [x] Sent mail: {message}")
-
-    return json.dumps({'mail_status': validate_email(mail, verify=True)})
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

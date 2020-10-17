@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Profile edit
+{% endblock %}
+
+
+
+{% block nav_main %}
+
+    <form class="form-inline">
+        <a href="/" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Home</a>
+        <a href="/profile/{{ username }}" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Profile</a>
+        <a href="/logout" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Log out</a>
+    </form>
+
+{% endblock %}
+
+{% block main %}
+
+{% from 'bootstrap/form.html' import render_field %}
+
+    <div class="container" style="
+    height: 100%!important;
+    min-height: 100%;
+    ">
+        <div class="row d-flex justify-content-center align-items-center" style="
+        height: 100% !important;
+        min-height: 100%;
+        ">
+            <div class="col-md-4 align-items-center text-center">
+                <form method="post" action="" id="registerForm">
+                    <fieldset>
+                        <h3>Edit an account</h3>
+                        {{ form.csrf_token }}
+                        {{ render_field(form.username) }}
+                        {{ render_field(form.email) }}
+                    </fieldset>
+                    <button type="submit" class="btn btn-lg btn-dark btn-block pt-2">
+                        Edit an account
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

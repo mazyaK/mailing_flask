@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Mail sending
+{% endblock %}
+
+
+{% block nav_main %}
+
+    <form class="form-inline">
+        <a href="/profile/{{ username }}" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Profile</a>
+        <a href="/logout" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Log out</a>
+    </form>
+
+{% endblock %}
+
+
+{% block main %}
+
+    <div class="container" style="
+    height: 100%!important;
+    min-height: 100%;
+">
+        <div class="row d-flex justify-content-center align-items-center" style="
+    height: 100% !important;
+    min-height: 100%;
+">
+            <div class="col-md-4 align-items-center text-center">
+                <form action="/check_mail" method="post" name="form">
+                    <h3><label for="mail" class="d-block">Введите почту:</label></h3>
+                    <input id="mail" class="mt-3 " name="mail" type="text">
+                    <input type="button" value="Отправить" onclick="check_mail();" class="btn btn-dark">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function check_mail() {
+            $.ajax({
+                type: "POST",
+                url: "/check_mail",
+                data: $('form').serialize(),
+                success: function (response) {
+                    var json = jQuery.parseJSON(response)
+                    $('#mail_status').html(json.mail_status)
+                    console.log(response);
+                },
+                error: function (error) {
+                   console.log(error)
+                }
+            });
+        }
+    </script>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block nav_main %}
+
+    <form class="form-inline">
+        <a href="/" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Home</a>
+        <a href="/profile/{{ username }}" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Profile</a>
+        <a href="/logout" class="btn btn-outline-light my-2 my-sm-0 mr-2" role="button" aria-pressed="true">Log out</a>
+    </form>
+
+{% endblock %}
+
+{% block main %}
+
+    <div class="container" style="
+    height: 100%!important;
+    min-height: 100%;
+">
+        <div class="row d-flex justify-content-center align-items-center" style="
+    height: 100% !important;
+    min-height: 100%;
+">
+            <div class="col-md-4 align-items-center text-center">
+                <h3>Username: {{ user.username }}</h3>
+                <h3>Email: {{ user.email }}</h3>
+                <form method="post" action="" id="profileEditForm">
+                    <button type="submit" class="btn btn-lg btn-dark btn-block pt-2">
+                              Edit profile
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
